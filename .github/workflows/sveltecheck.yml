@@ -1,0 +1,17 @@
+name: svelte-check
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: setup npm
+      uses: actions/setup-node@v3
+    - name: Install dependencies
+      run: |
+         cd frontend/ChromeRandomBookmark && npm install
+    - name: Analysing the code with svelte check
+      run: |
+         cd frontend/ChromeRandomBookmark && npm run check
