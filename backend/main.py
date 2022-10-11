@@ -3,8 +3,7 @@
 
 from flask_cors import CORS
 from flask import Flask, jsonify
-import chrome_bookmarks
-
+import bookmark_parser
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -15,7 +14,7 @@ def get_bookmarks():
     """returns all bookmarks"""
 
     ret_folders = []
-    for folder in chrome_bookmarks.folders:
+    for folder in bookmark_parser.folders:
         element = {}
         element["name"] = folder.name
         url_ids = []
@@ -26,7 +25,7 @@ def get_bookmarks():
         ret_folders.append(element)
 
     ret_urls = []
-    for url in chrome_bookmarks.urls:
+    for url in bookmark_parser.urls:
         element = {}
         element["name"] = url.name
         element["id"] = int(url.id)
