@@ -55,6 +55,16 @@
     }   
   }
 
+
+  function getUrlById(id:number):Url|null{
+        for(let i =0; i < urls.length; i++){
+            if(urls[i].id == id){
+                return urls[i];
+            }
+        }
+        return null;
+  }
+
   onMount(async () => {
     let bookmarks = await getBookmarks();
     if (bookmarks != undefined)
@@ -95,6 +105,11 @@
                 <ul>
                     {#each folders as folder}
                         <li>{folder.name}</li>
+                        <ul>
+                            {#each folder.url_ids as id}
+                                <li>{getUrlById(id)?.name}</li>
+                            {/each}
+                        </ul>
                     {/each}
                 </ul>
             </Col>
