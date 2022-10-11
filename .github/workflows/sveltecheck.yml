@@ -15,3 +15,6 @@ jobs:
     - name: Analysing the code with svelte check
       run: |
          cd frontend/ChromeRandomBookmark && npm run check
+    - name: lint the code
+      run: |
+         cd frontend/ChromeRandomBookmark && npm run format && npm run lint

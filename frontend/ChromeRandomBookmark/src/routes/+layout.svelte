@@ -1,7 +1,7 @@
 <script>
-    import { Styles } from 'sveltestrap';
-  </script>
-              
-  <Styles />
+	import { Styles } from 'sveltestrap';
+</script>
 
-  <slot></slot>
+<Styles />
+
+<slot />

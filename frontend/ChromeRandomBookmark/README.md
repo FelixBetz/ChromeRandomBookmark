@@ -6,7 +6,6 @@ sveltestrap: https://sveltestrap.js.org/?path=/story/components--get-started
 
 add `"type": "module",` to `@popperjs/core/package.json`
 
-
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
