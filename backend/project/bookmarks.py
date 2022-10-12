@@ -52,7 +52,7 @@ def parse_urls(arg_instance):
 def get_bookmarks():
     """returns all bookmarks"""
     bookmark_instance = Bookmarks(
-        "~\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Bookmarks")
+        paths[2])
 
     ret_folders = []
     ret_urls = []
