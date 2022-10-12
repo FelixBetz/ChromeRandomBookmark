@@ -102,23 +102,3 @@ class Bookmarks:
             attr_list["folders"].append(Item(item))
             if "children" in item:
                 self.process_tree(attr_list, item["children"])
-
-
-paths = [
-    os.path.expanduser("~/.config/google-chrome/Default/Bookmarks"),
-    os.path.expanduser(
-        "~/Library/Application Support/Google/Chrome/Default/Bookmarks"),
-    os.path.expanduser(
-        "~\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Bookmarks")
-]
-
-
-folders = []
-urls = []
-
-
-for f in paths:
-    if os.path.exists(f):
-        instance = Bookmarks(f)
-        folders = instance.folders
-        urls = instance.urls

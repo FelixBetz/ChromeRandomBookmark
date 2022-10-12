@@ -48,6 +48,17 @@ def test_valid_file():
     assert bookmarks.folders[0].type == "folder"
     assert bookmarks.folders[0].url == ""
 
+    url = bookmarks.folders[0].urls[0]
+
+    assert url.added == date_from_webkit("13309819625972240")
+    assert isinstance(url.added, datetime)
+
+    assert url.modified is None
+    assert url.id == "9"
+    assert url.name == "YouTube"
+    assert url.type == "url"
+    assert url.url == "https://www.youtube.com/"
+
 
 def test_convert_timestamp():
     """test date_from_webkit(timestamp)"""
