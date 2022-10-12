@@ -1,15 +1,14 @@
 """parses chrome bookmarks"""
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
 import json
 import os
-import sys
 
 
 def date_from_webkit(timestamp):
     """converts epoch timestamp to unix timestamp"""
     epoch_start = datetime(1601, 1, 1)
     delta = timedelta(microseconds=int(timestamp))
-    return (epoch_start + delta).replace(tzinfo=timezone.utc).astimezone()
+    return epoch_start + delta
 
 
 class Item(dict):
@@ -51,15 +50,6 @@ class Item(dict):
         return None
 
     @property
-    def folders(self):
-        """returns folders"""
-        items = []
-        for children in self["children"]:
-            if children["type"] == "folder":
-                items.append(Item(children))
-        return items
-
-    @property
     def urls(self):
         """returns urls"""
         items = []
@@ -74,6 +64,10 @@ class Bookmarks:
     path = None
 
     def __init__(self, path):
+        if not os.path.exists(path):
+            self.urls = []
+            self.folders = []
+            return
         self.path = path
         with open(path, encoding="utf-8") as file:
             self.data = json.load(file)
@@ -84,7 +78,7 @@ class Bookmarks:
     def process_roots(self):
         """process roots"""
         attr_list = {"urls": [], "folders": []}
-        with open(PATH, encoding="utf-8") as file:
+        with open(self.path, encoding="utf-8") as file:
             roots_data = json.load(file)
         for _, value in roots_data["roots"].items():
             if "children" in value:
@@ -117,14 +111,7 @@ paths = [
     os.path.expanduser(
         "~\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Bookmarks")
 ]
-PATH = ""
-if "linux" in sys.platform.lower():
-    PATH = "~/.config/google-chrome/Default/Bookmarks"
-if "darwin" in sys.platform.lower():
-    PATH = "~/Library/Application Support/Google/Chrome/Default/Bookmarks"
-if "win32" in sys.platform.lower():
-    PATH = "~\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Bookmarks"
-PATH = os.path.expanduser(PATH)
+
 
 folders = []
 urls = []
@@ -135,4 +122,3 @@ for f in paths:
         instance = Bookmarks(f)
         folders = instance.folders
         urls = instance.urls
-        attr = instance.attr_list

@@ -1,15 +1,13 @@
 """handels the flask backend"""
+from flask import jsonify, Blueprint
 
 
-from flask_cors import CORS
-from flask import Flask, jsonify
-import bookmark_parser
+from . import bookmark_parser
 
-app = Flask(__name__)
-cors = CORS(app)
+bookmark_routes = Blueprint('bookmark_routes', __name__)
 
 
-@app.route("/api/bookmarks", methods=["GET"])
+@bookmark_routes.route("/api/bookmarks", methods=["GET"])
 def get_bookmarks():
     """returns all bookmarks"""
 
@@ -38,7 +36,3 @@ def get_bookmarks():
         ret_urls.append(element)
 
     return jsonify({"folders": ret_folders, "urls": ret_urls})
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=False)
