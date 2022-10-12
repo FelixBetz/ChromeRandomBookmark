@@ -74,6 +74,10 @@ class Bookmarks:
     path = None
 
     def __init__(self, path):
+        if not os.path.exists(path):
+            self.urls = []
+            self.folders = []
+            return
         self.path = path
         with open(path, encoding="utf-8") as file:
             self.data = json.load(file)
@@ -131,8 +135,7 @@ urls = []
 
 
 for f in paths:
-    if os.path.exists(f):
-        instance = Bookmarks(f)
-        folders = instance.folders
-        urls = instance.urls
-        attr = instance.attr_list
+
+    instance = Bookmarks(f)
+    folders = instance.folders
+    urls = instance.urls
