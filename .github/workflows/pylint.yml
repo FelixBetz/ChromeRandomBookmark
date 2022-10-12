@@ -1,4 +1,4 @@
-name: Pylint
+name: PylintPytest
 
 on: [push]
 
@@ -21,6 +21,12 @@ jobs:
         pip install flask_cors
         pip install flask
         pip install chrome-bookmarks
+        pip install pytest
+        pip install pytest-cov
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')
+    - name: testing the code with pytest
+      run: |
+        cd backend
+        pytest --setup-show --cov=project --cov-report term-missing

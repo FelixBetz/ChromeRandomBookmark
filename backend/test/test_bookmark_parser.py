@@ -1,4 +1,5 @@
 """contains all tests for the file bookmark_parser.py"""
+import os
 from datetime import datetime
 from ..project.bookmark_parser import Bookmarks, date_from_webkit
 
@@ -15,7 +16,8 @@ def test_invalid_file():
 
 def test_valid_file():
     """test with test_bookmark.json"""
-    bookmarks = Bookmarks("test\\test_bookmark.json")
+
+    bookmarks = Bookmarks(os.path.join("test", "test_bookmark.json"))
 
     # test urls
     assert len(bookmarks.urls) == 4
